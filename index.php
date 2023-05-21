@@ -1,8 +1,7 @@
 
-
-
 <?php
 ob_start();
+session_start();
 ini_set('display_errors',1);
 ini_set('display_startup_errors',1);
 error_reporting(E_ALL);
@@ -15,7 +14,8 @@ if(isset( $_GET['controller'] ) && $_GET['controller'] != '' ){
     $controller = $_GET['controller'];
 }
 // echo "<h1>".$controller."</h1>";
-
+if(isset($_SESSION['object'])){
+               $auth = unserialize($_SESSION["object"]);
 switch ($controller) {
     case 'users':
         include_once './controller/UserController.php';
@@ -28,6 +28,10 @@ switch ($controller) {
     default:
         # code...
         break;
+}}
+else{
+        header("Location: login.php");
+    
 }
 
 $page = 'list';

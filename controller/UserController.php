@@ -1,4 +1,3 @@
-
 <?php
 include_once './model/User.php';
 include_once './model/GRoup.php';
@@ -96,6 +95,9 @@ class UserController
         $group = new Group();
         $groups = $group->all();
         include_once './views/users/show.php';
+
+    }
+    public function delete(){
 
     }
 }
