@@ -2,6 +2,15 @@
 include_once './controller/UserController.php';
 class user
 {
+    public function find($id)
+    {
+        global $conn;
+        $sql = "SELECT * FROM `users` WHERE id = $id";
+        $stmt = $conn->query($sql);
+        $stmt->setFetchMode(PDO::FETCH_OBJ); //array => object
+        $row = $stmt->fetch();
+        return $row;
+    }
     public function all1()
     {
         global $conn;
@@ -16,11 +25,18 @@ class user
         $limit = 10;
         // var_dump($pages);
         if (!empty($id)) {
+
             foreach ($id as $item) {
+                $user = $this->find($item);
+                if (isset($user->avatar)) {
+
+                    unlink($user->avatar);
+                }
                 // echo $item;
-                $sql = "DELETE FROM users WHERE id  = $item";
-                //thuc hien truy van
-                $conn->exec($sql);
+                // $sql = "DELETE FROM users WHERE id  = $item";
+                // //thuc hien truy van
+                // $conn->exec($sql); 
+                $this->delete($item);
             }
         }
         $offset = ($pages - 1) * $limit;
@@ -56,15 +72,7 @@ class user
         return $param;
     }
     //tra ve record theo id
-    public function find($id)
-    {
-        global $conn;
-        $sql = "SELECT * FROM `users` WHERE id = $id";
-        $stmt = $conn->query($sql);
-        $stmt->setFetchMode(PDO::FETCH_OBJ); //array => object
-        $row = $stmt->fetch();
-        return $row;
-    }
+
     //     //xu ly them moi
     public function store($data)
     {
@@ -167,9 +175,9 @@ class user
                 move_uploaded_file($tmp_img, $avatar);
             } else {
                 // Tệp ảnh không hợp lệ
-                
+
             }
-        }else{
+        } else {
             $sql = " UPDATE `users` SET 
                 `name` = '$name',
                 `address` = '$address',
@@ -179,7 +187,7 @@ class user
                 `phone` = '$phone',
                 `group_id` = '$group'
             WHERE `id` = $id";
-                $conn->query($sql);
+            $conn->query($sql);
         }
         // print $sql;
         // die();
@@ -188,7 +196,12 @@ class user
     public function delete($id)
     {
         global $conn;
-        $sql = "DELETE FROM `c10_mat_hang` WHERE MAHANG = $id";
+        $user = $this->find($id);
+        if (isset($user->avatar)) {
+
+            unlink($user->avatar);
+        }
+        $sql = "DELETE FROM `users` WHERE id = $id";
         $conn->exec($sql);
     }
 }

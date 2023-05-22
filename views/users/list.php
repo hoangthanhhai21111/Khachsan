@@ -82,7 +82,7 @@
               </thead>
               <tbody>
                 <?php foreach ($rows as $row) : ?>
-                  <tr>
+                  <tr class="item-<?= $row->id ?>">
                     <th scope="row"><?= $row->id ?></th>
                     <td><?= $row->name ?></td>
                     <!-- <td><img src="http://localhost/Quan_ly_khach_san_code_thuan/<?php // echo $row->avatar
@@ -93,8 +93,9 @@
                     <td style="text-align: center" ;><input type="checkbox" class="form-check-input" name="id[]" value="<?= $row->id ?>"></td>
                     <td> <a href="?controller=users&page=show&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-zoom-in" style="color:#0022ff;"></i></a>
                       <a href="?controller=users&&page=edit&&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-pencil-square" style="color:#0022ff;"></i></a>
-                      <a href="delete.php?id=<?php echo $row->id; ?>" class="btn">
+                      <a data-url="?controller=users&&page=delete&&id=<?php echo $row->id; ?>" id="<?php echo $row->id; ?>" class="btn deleteIcon">
                         <div class="icon"><i class="bi bi-trash" style="color:#0022ff;"></i></div>
+                      </a>
                       </a>
                     </td>
                   </tr>
@@ -136,4 +137,40 @@
       x.style = "display:none;";
     }
   }
+</script>
+<script>
+  $(document).on('click', '.deleteIcon', function(e) {
+    e.preventDefault();
+    let id = $(this).attr('id');
+    let url = $(this).data('url');
+    // let csrf = '{{csrf_token()}}';
+    Swal.fire({
+      title: 'bạn chắc chắn muốn xóa?',
+      text: "bạn sẽ không thể khôi phục khi xóa!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'vâng, xóa nó đi!'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.ajax({
+          url: url,
+          // method: 'delete',
+          data: {
+            id: id,
+            // _token: csrf
+          },
+          success: function(res) {
+            Swal.fire(
+              'Xóa thành công!',
+              'Tập tin đã được xóa.',
+              'success'
+            )
+            $('.item-' + id).remove();
+          }
+        });
+      }
+    });
+  });
 </script>

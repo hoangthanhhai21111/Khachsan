@@ -5,7 +5,6 @@ include_once './model/GRoup.php';
 class UserController
 {
     // trang danh sach
-
     public function list()
     {
         // echo __METHOD__;
@@ -32,7 +31,6 @@ class UserController
             $pages = (!empty($_GET['pages'])) ? $_GET['pages']  : '1';
         }
         // }
-
         $users = new user();
         $rows = $users->all($pages, $name, $email, $id)["rows"];
         $number_page =  $users->all($pages, $name, $email, $id)["number_page"];
@@ -98,7 +96,9 @@ class UserController
 
     }
     public function delete(){
-
+        $id  = $_GET['id']; 
+        $user = new user();
+        $row = $user->delete($id);
     }
 }
 ?>

@@ -1,4 +1,3 @@
-
 <?php
 ob_start();
 session_start();
@@ -53,6 +52,9 @@ switch ($page) {
     case 'show':
         $objController->show();
         break;
+        case 'delete':
+            $objController->delete();
+            break;
     // default:
     //     $objController->list();
     //     break;
