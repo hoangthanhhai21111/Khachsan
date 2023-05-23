@@ -15,32 +15,7 @@
         <div class="card">
           <div class="card-body">
             <div class="col-lg-12">
-              <!-- lọc nâng cao -->
-              <div class=" col-lg-12" id="seachs" style="display:<?= ($name != '' || $email != '') ? 'block' : 'none' ?>;">
-                <br>
-                <form action="" method="GET">
-                  <input type="hidden" name="controller" value="users" />
-                  <input type="hidden" name="page" value="list" />
-                  <input type="hidden" name="pages" value="1" />
-                  <div class=" col-lg-4 cat">
-                    <input type="text" class="form-control" value="<?= $name ?>" name="name" placeholder="Tên nhân viên">
-                  </div>
-                  <div class=" col-lg-4 cat">
-                    <input class="form-control" type="text" value="<?= $email ?>" name="email" placeholder="Email">
-                  </div>
-                  <div class=" col-lg-4 cat">
-                    <div class=" col-lg-8 cat">
-                      <select class="form-control" name="" name="" id="">
-                        <option value="">--Chức vụ--</option>
-                      </select>
-                    </div>
-                    <div class=" col-lg-4cat">
-                      <button type="submit" class="btn btn-primary">Tim kiếm</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-              <!-- end lọc nang cao -->
+
               <div class=" col-lg-6 cat">
                 <h5 class="card-title">Danh Sách Các Nhân Viên</h5>
               </div>
@@ -48,9 +23,11 @@
                 <div class='cat' style="text-align:right">
                   <a href="?controller=users&&page=add" class="btn" style="color:#0022ff;"><u>Thêm mới</u> <i class="bi bi-plus" style="width:100px"></i></a>|
                 </div>
-                <div class='cat'>
+                <!-- lọc nâng cao -->
+                <!-- <div class='cat'>
                   <button class="btn" style="color:#0022ff;" onclick="seach()"><u>Lọc nâng cao <i class="bi bi-funnel-fill"></i></u></button>|
-                </div>
+                </div> -->
+                <!-- loc nâng cao -->
                 <form method="post" action>
                   <input type="hidden" name="controller" value="users" />
                   <input type="hidden" name="page" value="list" />
@@ -73,12 +50,9 @@
               <thead>
                 <tr>
                   <th scope="col" width="5%">#</th>
-                  <th scope="col" class="checked" width="20%">Họ và tên </th>
+                  <th scope="col" class="checked" width="20%">Tên chức vụ </th>
                   <!-- <th scope="col" class="checked" width="30%">Ảnh</th> -->
-                  <th scope="col">Email</th>
-                  <th scope="col">Số Điện Thoại</th>
-                  <th scope="col" width="15%">Chức vụ</th>
-                  <th scope="col" width="5%"> Chọn</th>
+                  <th scope="col" style="text-align: center;" width="5%"> Chọn</th>
                   <th scope="col" width="15%">Tùy chọn</th>
                 </tr>
               </thead>
@@ -89,9 +63,6 @@
                     <td><?= $row->name ?></td>
                     <!-- <td><img src="http://localhost/Quan_ly_khach_san_code_thuan/<?php // echo $row->avatar
                                                                                       ?>" alt=""></td> -->
-                    <td><?= $row->email ?></td>
-                    <td><?= $row->phone ?></td>
-                    <td><?= $row->group_name ?></td>
                     <td style="text-align: center" ;><input type="checkbox" class="form-check-input" name="id[]" value="<?= $row->id ?>"></td>
                     <td> <a href="?controller=users&page=show&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-zoom-in" style="color:#0022ff;"></i></a>
                       <a href="?controller=users&&page=edit&&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-pencil-square" style="color:#0022ff;"></i></a>
@@ -115,11 +86,11 @@
             ?>
               <nav aria-label="Page navigation example">
                 <ul class="pagination">
-                  <li class="page-item"><a class="page-link" href="?controller=users&&page=list&&pages=<?php echo (isset($_GET["pages"])) ? (($_GET["pages"] - 1) != 0 ? ($_GET["pages"] - 1) : 1) : 1; ?>">Trang Trước</a></li>
+                  <li class="page-item"><a class="page-link" href="?controller=groups&&page=list&&pages=<?php echo (isset($_GET["pages"])) ? (($_GET["pages"] - 1) != 0 ? ($_GET["pages"] - 1) : 1) : 1; ?>">Trang Trước</a></li>
                   <?php for ($i = 1; $i <= $number_page; $i++) : ?>
-                    <li class="page-item <?= $pages == $i ? "active" : "" ?> "><a class="page-link" href="?controller=users&&page=list&&pages=<?= $i ?>"><?= $i ?></a></li>
+                    <li class="page-item <?= $pages == $i ? "active" : "" ?> "><a class="page-link" href="?controller=groups&&page=list&&pages=<?= $i ?>"><?= $i ?></a></li>
                   <?php endfor; ?>
-                  <li class="page-item"><a class="page-link" href="?controller=users&&page=list&&pages=<?= (isset($_GET["pages"])) ? (($_GET["pages"] + 1) <= $number_page ? ($_GET["pages"] + 1) : $number_page) : $pages + 1 ?>">trang tiếp</a></li>
+                  <li class="page-item"><a class="page-link" href="?controller=groups&&page=list&&pages=<?= (isset($_GET["pages"])) ? (($_GET["pages"] + 1) <= $number_page ? ($_GET["pages"] + 1) : $number_page) : $pages + 1 ?>">trang tiếp</a></li>
                 </ul>
               </nav>
             <?php endif; ?>
@@ -130,7 +101,7 @@
     </div>
   </section>
 </main>
-<script>
+<!-- <script>
   function seach() {
     var x = document.getElementById("seachs");
     if (x.style.display == "none") {
@@ -139,7 +110,7 @@
       x.style = "display:none;";
     }
   }
-</script>
+</script> -->
 <script>
   $(document).on('click', '.deleteIcon', function(e) {
     e.preventDefault();

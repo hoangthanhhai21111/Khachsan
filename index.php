@@ -12,7 +12,6 @@ $controller = 'users';
 if(isset( $_GET['controller'] ) && $_GET['controller'] != '' ){
     $controller = $_GET['controller'];
 }
-// echo "<h1>".$controller."</h1>";
 if(isset($_SESSION['object'])){
                $auth = unserialize($_SESSION["object"]);
 switch ($controller) {
@@ -20,9 +19,9 @@ switch ($controller) {
         include_once './controller/UserController.php';
         $objController =  new UserController();
         break;
-    case 'login':
-        header("Location: login.php");
-        // $objController =  new LoaiHangController();
+    case 'groups':
+        include_once './controller/GroupController.php';
+        $objController =  new GroupController();
         break;
     default:
         # code...
@@ -55,10 +54,9 @@ switch ($page) {
         case 'delete':
             $objController->delete();
             break;
-    // default:
-    //     $objController->list();
-    //     break;
+    default:
+        $objController->list();
+        break;
 }
 include 'layouts/footer.php';
 ob_end_flush();
-?>
