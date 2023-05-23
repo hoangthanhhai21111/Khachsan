@@ -32,10 +32,6 @@ class user
 
                     unlink($user->avatar);
                 }
-                // echo $item;
-                // $sql = "DELETE FROM users WHERE id  = $item";
-                // //thuc hien truy van
-                // $conn->exec($sql); 
                 $this->delete($item);
             }
         }
@@ -106,12 +102,6 @@ class user
                 echo "Tệp ảnh không hợp lệ. Vui lòng chọn một tệp khác.";
             }
         }
-        // if (isset($_FILES['avatar'])) {
-        //     $img = $_FILES['avatar']['name'];
-        //     $tmp_img = $_FILES['avatar']['tmp_name'];
-        //     $avatar = "./assets/images/users/" . $img;
-        //     move_uploaded_file($tmp_img, $avatar);
-        // }
         global $conn;
         // Sử dụng prepared statements để tránh SQL injection
         // Sử dụng dấu chấm hỏi ? để đại diện cho các tham số
@@ -123,16 +113,6 @@ class user
         (   '$name', '$address', '$email', '$hash', '$day_of_birth', '$username', '$phone', '$group', '$avatar')";
         // Chuẩn bị câu lệnh SQL
         $conn->query($sql);
-        // $users = new  UserController();
-        // $users ->list($content = "thêm mới thành công");
-        // } catch(Exception $e){
-        // $users = new  UserController();
-        //     // $users ->list($content = "thêm mới thất bại");
-
-        // }
-        //   if($conn->query($sql)){
-        //        header("http://localhost/Quan_ly_khach_san_code_thuan/?controller=users");
-        //    }
     }
     //     //xu ly cap nhat
     public function update($id, $data)
