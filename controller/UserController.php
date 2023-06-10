@@ -6,6 +6,8 @@ class UserController
 {
     public function list()
     {
+        $group = new Group();
+        $group->haspermission('view_user');
         $id = [];
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
@@ -51,7 +53,6 @@ class UserController
             include_once 'views/users/add.php';
         }
     }
-
     public function edit()
     {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {

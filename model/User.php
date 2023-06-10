@@ -25,7 +25,6 @@ class user
         $limit = 10;
         // var_dump($pages);
         if (!empty($id)) {
-
             foreach ($id as $item) {
                 $user = $this->find($item);
                 if (isset($user->avatar)) {
@@ -63,7 +62,7 @@ class user
         $rows = $stmt->fetchAll();
         $param = [
             "rows" => $rows,
-            "number_page" => $number_page
+            "number_page" => $number_page,
         ];
         return $param;
     }
