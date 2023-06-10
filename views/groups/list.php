@@ -1,10 +1,10 @@
 <main id="main" class="main">
   <div class="pagetitle">
-    <h1>Nhân Viên</h1>
+    <h1>Chức Vụ</h1>
     <nav>
       <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">Trang Chủ</a></li>
-        <li class="breadcrumb-item active">Danh Sách Nhân Viên</li>
+        <li class="breadcrumb-item active">Danh Sách Các chức vụ</li>
         <!-- <li class="breadcrumb-item ">General</li> -->
       </ol>
     </nav>
@@ -17,11 +17,11 @@
             <div class="col-lg-12">
 
               <div class=" col-lg-6 cat">
-                <h5 class="card-title">Danh Sách Các Nhân Viên</h5>
+                <h5 class="card-title">Danh Sách Các Chức vụ</h5>
               </div>
               <div class="col-lg-6 cat cat1">
                 <div class='cat' style="text-align:right">
-                  <a href="?controller=users&&page=add" class="btn" style="color:#0022ff;"><u>Thêm mới</u> <i class="bi bi-plus" style="width:100px"></i></a>|
+                  <a href="?controller=groups&&page=add" class="btn" style="color:#0022ff;"><u>Thêm mới</u> <i class="bi bi-plus" style="width:100px"></i></a>|
                 </div>
                 <!-- lọc nâng cao -->
                 <!-- <div class='cat'>
@@ -64,10 +64,10 @@
                     <!-- <td><img src="http://localhost/Quan_ly_khach_san_code_thuan/<?php // echo $row->avatar
                                                                                       ?>" alt=""></td> -->
                     <td style="text-align: center" ;><input type="checkbox" class="form-check-input" name="id[]" value="<?= $row->id ?>"></td>
-                    <td> <a href="?controller=users&page=show&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-zoom-in" style="color:#0022ff;"></i></a>
-                      <a href="?controller=users&&page=edit&&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-pencil-square" style="color:#0022ff;"></i></a>
-                      <a data-url="?controller=users&&page=delete&&id=<?php echo $row->id; ?>" id="<?php echo $row->id; ?>" class="btn deleteIcon">
-                        <div class="icon"><i class="bi bi-trash" style="color:#0022ff;"></i></div>
+                    <td> <a href="?controller=groups&page=show&id=<?php echo $row->id; ?>" class="btn btn-info"><i class="bi bi-zoom-in" style=""></i></a> | 
+                      <a href="?controller=groups&&page=edit&&id=<?php echo $row->id; ?>" class="btn btn-secondary"><i class="bi bi-pencil-square" style=""></i></a> |
+                      <a data-url="?controller=groups&&page=delete&&id=<?php echo $row->id; ?>" id="<?php echo $row->id; ?>" class="btn deleteIcon btn-danger">
+                        <div class="icon"><i class="bi bi-trash" style=""></i></div>
                       </a>
                       </a>
                     </td>
