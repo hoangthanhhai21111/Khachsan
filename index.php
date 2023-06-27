@@ -4,8 +4,8 @@ session_start();
 ini_set('display_errors',1);
 ini_set('display_startup_errors',1);
 error_reporting(E_ALL);
-// include_once 'layouts/header.php';
-// include_once 'layouts/sidebar.php';
+include_once 'layouts/header.php';
+include_once 'layouts/sidebar.php';
 include_once './database/db.php';
 
 $controller = 'users';

@@ -10,7 +10,6 @@ class GroupController
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
         }
-
         $pages = 1;
         if (isset($_GET['pages'])) {
             $pages = (!empty($_GET['pages'])) ? $_GET['pages']  : '1';
@@ -23,7 +22,6 @@ class GroupController
     {
         $group = new Group();
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
             try {
                 $roles = [];
                 $roles = $_POST['roles'];
@@ -69,7 +67,7 @@ class GroupController
                 $roles = [];
                 $roles = $_POST['roles'];
                 $row = $group->update($id, $_REQUEST);
-                $group->updatePermission($roles,$id);
+                $group->updatePermission($roles, $id);
                 header("Location: ?controller=groups");
             } catch (Exception $e) {
                 header("Location: ?controller=groups");
