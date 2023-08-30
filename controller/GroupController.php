@@ -5,41 +5,52 @@ class GroupController
     public function list()
     {
         $group = new Group();
-        $group->haspermission('view_group');
-        $id = [];
-        if (isset($_POST['id'])) {
-            $id = $_POST['id'];
+        //phân quyền
+        if ($group->haspermission('view_group')) {
+            $id = [];
+            if (isset($_POST['id'])) {
+                $id = $_POST['id'];
+            }
+            $pages = 1;
+            if (isset($_GET['pages'])) {
+                $pages = (!empty($_GET['pages'])) ? $_GET['pages']  : '1';
+            }
+            $rows = $group->list($id)['rows'];
+            $number_page = $group->list($id)['number_page'];
+            include_once 'views/groups/list.php';
+        } else {
+            header("Location: error.php");
         }
-        $pages = 1;
-        if (isset($_GET['pages'])) {
-            $pages = (!empty($_GET['pages'])) ? $_GET['pages']  : '1';
-        }
-        $rows = $group->list($id)['rows'];
-        $number_page = $group->list($id)['number_page'];
-        include_once 'views/groups/list.php';
     }
     public function add()
     {
         $group = new Group();
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            try {
-                $roles = [];
-                $roles = $_POST['roles'];
-                $group->store($_REQUEST);
-                $group->addPermission($roles);
-                header("Location: ?controller=groups");
-            } catch (Exception $e) {
-                header("Location: ?controller=groups");
+        //phân quyền
+        if ($group->haspermission('add_group')) {
+            $group = new Group();
+            $group->haspermission('add_group');
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                try {
+                    $roles = [];
+                    $roles = $_POST['roles'];
+                    $group->store($_REQUEST);
+                    $group->addPermission($roles);
+                    header("Location: ?controller=groups");
+                } catch (Exception $e) {
+                    header("Location: ?controller=groups");
+                }
             }
+            $rows = $group->listPermission();
+            $position_names = [];
+            /////lấy tên nhóm quyền
+            foreach ($rows as $role) {
+                $position_names[$role['group_name']][] = $role;
+            }
+            // print_r($position_names);
+            include_once 'views/groups/add.php';
+        } else {
+            header("Location: error.php");
         }
-        $rows = $group->listPermission();
-        $position_names = [];
-        /////lấy tên nhóm quyền
-        foreach ($rows as $role) {
-            $position_names[$role['group_name']][] = $role;
-        }
-        // print_r($position_names);
-        include_once 'views/groups/add.php';
     }
     public function show()
     {

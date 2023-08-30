@@ -1,23 +1,29 @@
 <?php
-include_once './model/KhachHang.php'; 
-include_once './model/HangPhong.php'; 
+include_once './model/KhachHang.php';
+include_once './model/HangPhong.php';
 include_once './model/Group.php';
 include_once './model/phong.php';
 
-class KhachHangController {
-    function KhachHang(){
+class KhachHangController
+{
+    function KhachHang()
+    {
         return new KhachHang();
     }
-    function Group(){
+    function Group()
+    {
         return new Group();
     }
-    function HangPhong(){
+    function HangPhong()
+    {
         return new HangPhong();
     }
-    function Phong(){
+    function Phong()
+    {
         return new Phong();
     }
-    function list(){
+    function list()
+    {
         $this->Group()->haspermission('view_khach_hang');
         $id = [];
         if (isset($_POST['id'])) {
@@ -30,7 +36,7 @@ class KhachHangController {
         // }
         // $rows = $group->list($id)['rows'];
         // $number_page = $group->list($id)['number_page'];
-        
+
         $id = [];
         if (isset($_POST['id'])) {
             $id = $_POST['id'];
@@ -63,13 +69,33 @@ class KhachHangController {
         $number_page =  $this->KhachHang()->all($pages, $ten, $cmnd, $sdt, $id)["number_page"];
         include_once 'views/KhachHangs/list.php';
     }
-    function add(){
-        if(isset($_POST['store'])) {
-             $this->khachHang()->store($_REQUEST);
+    function add()
+    {
+        if (isset($_POST['store'])) {
+            $this->khachHang()->store($_REQUEST);
+            header("Location: ?controller=khachhangs&&page=listPhong");
         }
         $hangs = $this->HangPhong()->all();
         $phongs = $this->Phong()->all();
         include_once 'views/KhachHangs/add.php';
     }
+    function listPhong()
+    {
+
+        $khachs = $this->khachHang()->khachHang1();
+        $phong = $this->Phong()->all();
+        // echo "<pre/>";
+        // print_r($khachs);   
+        $hangs = [];
+        foreach ($phong as $role) {
+            $hangs[$role['hang_phong']][] = $role;
+        }
+        include_once 'views/KhachHangs/listPhongs.php';
+        $id = $khachs->id;
+        if (isset($_POST['store'])) {
+            $this->Phong()->bugPhongs($id,$_REQUEST);
+            // $this->khachHang()->store($_REQUEST);
+            // header("Location: ?controller=khachhangs&&page=listPhong");
+        }
+    }
 }
-?>

@@ -20,7 +20,9 @@ class login
             $row = $stmt->fetch();
             // echo password_verify($password, $row->password);
             if (password_verify($password, $row->password)) {
+                // luu thong tin dang nhap len session
                 $_SESSION["object"] = serialize($row);
+                // lấy thông tin ngươi đăng nhập
                 $object = unserialize($_SESSION["object"]);
                 // echo $object->name;
                 return true;

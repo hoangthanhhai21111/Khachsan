@@ -18,7 +18,7 @@
       <div class="card">
         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
 
-          <img src="<?= $row->avatar?>" alt="Profile" class="rounded-circle">
+          <img src="<?= $row->avatar?>" alt="Profile">
           <h2><?= $row->name ?></h2>
           <h3><?php foreach ($groups as $group){
              if($row->group_id == $group->id){

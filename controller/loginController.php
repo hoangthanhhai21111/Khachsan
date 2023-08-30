@@ -13,7 +13,12 @@ class loginController
 
                 $loginprocessing = new login();
                 if ($loginprocessing->loginProcessing($_REQUEST)) {
+                    if(isset($_SESSION['object'])){
                     header("Location:index.php?controller=users");
+                }
+                else {
+                    include_once 'views/login/login.php';
+                }
                 }
             } else {
                 include_once 'views/login/login.php';

@@ -16,24 +16,30 @@
           <div class="card-body">
             <div class="col-lg-12">
               <!-- lọc nâng cao -->
-              <div class=" col-lg-12" id="seachs" style="display:<?= ($ten != '' || $cmnd != '' || $sdt != '') ? 'block' : 'none' ?>;">
+              <div class=" col-lg-12" id="seachs" style="display:<?= ($name != '' || $hang != '' || $trang_thai != '') ? 'block' : 'none' ?>;">
                 <br>
                 <form action="" method="GET">
-                  <input type="hidden" name="controller" value="khachhangs" />
+                  <input type="hidden" name="controller" value="phongs" />
                   <input type="hidden" name="page" value="list" />
                   <input type="hidden" name="pages" value="1" />
                   <div class=" col-lg-4 cat">
-                    <input type="text" class="form-control" value="<?= $ten ?>" name="ten" placeholder="Tên Khách Hàng ">
+                    <input type="text" class="form-control" value="<?= $name ?>" name="name" placeholder="Số Phòng ">
                   </div>
                   <div class=" col-lg-4 cat">
-                    <input class="form-control" type="text" value="<?= $cmnd ?>" name="cmnd" placeholder="Số CMND">
+                    <select name="hang" id="" class="form-control">
+                      <option value="">-- Hạng Phong --</option>
+                      <?php foreach ($hangs as $hang) : ?>
+                        <option value="<?= $hang->id ?>"><?= $hang->name ?></option>
+                      <?php endforeach ?>
+                    </select>
+                    <!-- <input class="form-control" type="text" value="" name="hangp" placeholder="Hạng Phòng"> -->
                   </div>
                   <div class=" col-lg-4 cat">
                     <div class=" col-lg-8 cat">
-                      <input class="form-control" type="number" value="<?= $sdt ?>" name="sdt" placeholder="Số điện thoại">
-                      <!-- <select class="form-control" name="" name="" id="">
+                      <!-- <input class="form-control" type="text" value="<?php $trang_thai ?>" name="sdt" placeholder="Trạng Thái Phòng"> -->
+                      <select class="form-control" name="" name="trangthai" id="">
                         <option value="">--Chức vụ--</option>
-                      </select> -->
+                      </select>
                     </div>
                     <div class=" col-lg-4cat">
                       <button type="submit" class="btn btn-primary">Tim kiếm</button>
@@ -74,32 +80,32 @@
               <thead>
                 <tr>
                   <th scope="col" width="5%">#</th>
-                  <th scope="col" class="checked" width="20%">Họ và tên </th>
+                  <th scope="col" class="checked" width="20%">Tên Phòng </th>
                   <!-- <th scope="col" class="checked" width="30%">Ảnh</th> -->
-                  <th scope="col">Số CMND/CCCD</th>
-                  <th scope="col">Số Điện Thoại</th>
-                  <th scope="col" width="15%">Phòng</th>
-                  <th scope="col" width="15%">Thời Gian đặt</th>
+                  <th scope="col">Hạng Phòng</th>
+                  <th scope="col">Giá</th>
+                  <th scope="col" width="15%">Trạng Thái Phòng</th>
+                  <!-- <th scope="col" width="15%">Thời Gian đặt</th> -->
                   <th scope="col" width="5%"> Chọn</th>
                   <th scope="col" width="15%">Tùy chọn</th>
                 </tr>
               </thead>
               <tbody>
-                <?php foreach ($rows as $row) : ?>
+                <?php foreach ($phongs as $row) : ?>
                   <tr class="item-<?= $row->id ?>">
                     <th scope="row"><?= $row->id ?></th>
 
                     <!-- <td><img src="http://localhost/Quan_ly_khach_san_code_thuan/<?php // echo $row->avatar
                                                                                       ?>" alt=""></td> -->
-                    <td><?= $row->ten ?></td>
-                    <td><?= $row->cmnd ?></td>
-                    <td><?= $row->sdt ?></td>
                     <td><?= $row->name ?></td>
-                    <td><?= $row->thoi_gian_dat ?></td>
+                    <td><?= $row->hang_phong ?></td>
+                    <td><?= number_format($row->gia) ?>.VNĐ</td>
+                    <td><a href="#"><?= ($row->status == null) ? "Trống" : (($row->status == 1) ? "Đang Có Khách" : "Đang có khách đặt"); ?></a></td>
+                    <!-- <td><?= $row->thoi_gian_dat ?></td> -->
                     <td style="text-align: center" ;><input type="checkbox" class="form-check-input" name="id[]" value="<?= $row->id ?>"></td>
-                    <td> <a href="?controller=khachhangs&page=show&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-zoom-in" style="color:#0022ff;"></i></a>
-                      <a href="?controller=khachhangs&&page=edit&&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-pencil-square" style="color:#0022ff;"></i></a>
-                      <a data-url="?controller=khachhangs&&page=delete&&id=<?php echo $row->id; ?>" id="<?php echo $row->id; ?>" class="btn deleteIcon">
+                    <td> <a href="?controller=phongs&page=show&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-zoom-in" style="color:#0022ff;"></i></a>
+                      <a href="?controller=phongs&&page=edit&&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-pencil-square" style="color:#0022ff;"></i></a>
+                      <a data-url="?controller=phongs&&page=delete&&id=<?php echo $row->id; ?>" id="<?php echo $row->id; ?>" class="btn deleteIcon">
                         <div class="icon"><i class="bi bi-trash" style="color:#0022ff;"></i></div>
                       </a>
                       </a>

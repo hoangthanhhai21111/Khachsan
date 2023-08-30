@@ -185,7 +185,10 @@ class Group
         $rows = $stmt->fetchAll();
         if (empty($rows)) {
             // echo true;
-            header("Location: error.php");
+            // header("Location: error.php");
+            return false;
+        } else{
+            return true;
         }
     }
     public function updatePermission($roles, $id)
