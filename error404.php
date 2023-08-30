@@ -45,10 +45,10 @@
     <div class="container">
 
       <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
-        <h1>403</h1>
-        <h2>Forbidden.</h2>
+        <h1>404</h1>
+        <h2>Not Found.</h2>
         <!-- <h2>The page you are looking for doesn't exist.</h2> -->
-        <a class="btn" href="<?= $_SERVER['HTTP_REFERER'];?>">Back to home</a>
+        <a class="btn" href="#">Back to home</a>
         <img src="assets/img/not-found.svg" class="img-fluid py-5" alt="Page Not Found">
         <div class="credits">
           <!-- All the links in the footer should remain intact. -->

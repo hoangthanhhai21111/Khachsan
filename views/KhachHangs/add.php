@@ -18,11 +18,11 @@
             <!-- Multi Columns Form -->
             <form onsubmit="return addUser()" class="row g-3" method="post" enctype="multipart/form-data">
 
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <label for="inputName5" class="form-label">Họ Tên: <span style="color:red" id="errorsName">(*)</span></label>
                 <input type="text" class="form-control name" name='ten' id="name">
               </div>
-              <div class="col-md-6">
+              <div class="col-md-12">
                 <label for="inputZip" class="form-label">Số CMND/CCCD:<span style="color:red" id="errorsUserName">(*)</span></label>
                 <input type="number" class="form-control" name="cmnd" id="userName">
               </div>
@@ -50,7 +50,7 @@
                 <label for="inputCity" class="form-label">Ảnh:</label>â
                 <input type="file" class="form-control" name="avatar" id="inputCity">
               </div> -->
-              <div class="col-md-4">
+              <!-- <div class="col-md-4">
                 <label for="inputState" class="form-label">Hạng Phòng</label>
                 <select id="inputState" name="group" class="form-select">
                   <option value="">--Chọn Hạng--</option>
@@ -58,8 +58,8 @@
                     <option value="<?= $hang->id ?>"><?= $hang->name ?></option>
                   <?php endforeach ?>
                 </select>
-              </div>
-              <div class="col-md-4">
+              </div> -->
+              <!-- <div class="col-md-4">
                 <label for="inputState" class="form-label">Phòng</label>
                 <select id="inputState" name="group" class="form-select">
                   <option value="">--Chọn Phòng--</option>
@@ -72,10 +72,10 @@
               <div class="col-md-4">
                 <label for="inputState" class="form-label">Thời gian Đặt phòng</label>
                 <input type="datetime-local" class="form-control ">
-              </div>
+              </div> -->
               <div class="text-center">
-                <button type="submit" class="btn btn-primary" name="store">Submit</button>
-                <button type="reset" class="btn btn-secondary">Reset</button>
+                <button type="submit" class="btn btn-primary" name="store">kế tiếp</button>
+                <button type="reset" class="btn btn-secondary">Cài lại</button>
               </div>
             </form><!-- End Multi Columns Form -->
           </div>
