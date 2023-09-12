@@ -70,7 +70,7 @@ $Group = new Group();
                                                                                       ?>" alt=""></td> -->
                     <td style="text-align: center" ;><input type="checkbox" class="form-check-input" name="id[]" value="<?= $row->id ?>"></td>
                     <td>
-                      <?php if ($group->haspermission('show_group')) : ?>
+                      <?php if ($Group->haspermission('show_group')) : ?>
                         <a title="xem" href="?controller=groups&page=show&id=<?php echo $row->id; ?>" class="btn btn-info"><i class="bi bi-zoom-in" style=""></i></a>
                       <?php endif; ?>
                       <?php if ($group->haspermission('update_group')) : ?> |

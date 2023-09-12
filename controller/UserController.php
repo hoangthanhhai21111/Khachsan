@@ -6,8 +6,8 @@ class UserController
 {
     public function list()
     {
-        $group = new Group();
-        $group->haspermission('view_user');
+        // $group = new Group();
+        // $group->haspermission('view_user');
         $id = [];
         if (isset($_POST['id'])) {
             $id = $_POST['id'];

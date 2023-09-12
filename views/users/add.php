@@ -87,6 +87,7 @@
     var userName = document.getElementById("userName").value;
     var errorsUserName = document.getElementById("errorsUserName");
     var username = '';
+    var usernameExist = true;
     const usernames = [1];
     <?php foreach ($users as $iii) : ?>
       usernames.push("<?php echo ($iii['username']); ?>")
@@ -94,19 +95,23 @@
     for (var i = 0; i < usernames.length; i++) {
       if (userName == "" || userName == null) {
         errorsUserName.innerHTML = "Tên đăng nhập không được bỏ trống!";
+        usernameExist = false;
         break;
       } else if (userName == usernames[i]) {
         errorsUserName.innerHTML = "Tên đăng nhập đã tồn tại!";
+        usernameExist = false;
         break;
-      } else {
-        errorsUserName.innerHTML = "";
-        username = true;
       }
+    }
+    if (usernameExist) {
+      errorsUserName.innerHTML = "";
+      username = true;
     }
 
     var Email = document.getElementById("email").value;
     var errorsEmail = document.getElementById("errorsEmail");
-    var regexEmail = /[A-Z0-9._%+-]+@[A-Z0-9]+.+.[A-Z]{2,4}/igm;
+    var regexEmail = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
+    var emailExist = true;
     var email = '';
     const emails = [1];
     <?php foreach ($users as $iii) : ?>
@@ -115,16 +120,23 @@
     for (var i = 0; i < emails.length; i++) {
       if (Email == "" || Email == null) {
         errorsEmail.innerHTML = "Email không được bỏ trống!";
+        emailExist = false;
+        break;
+      }
+      if (!regexEmail.test(Email)) {
+        errorsEmail.innerHTML = "Email không đúng định dạng!";
+        emailExist = false;
         break;
       }
       if (Email == emails[i]) {
-        errorsEmail.innerHTML = "Email nhập đã tồn tại!";
+        errorsEmail.innerHTML = "Email đã tồn tại!";
+        emailExist = false;
         break;
-      } else {
-        errorsEmail.innerHTML = "";
-        email = true;
       }
-
+    }
+    if (emailExist) {
+      errorsEmail.innerHTML = "";
+      email = true;
     }
 
     var password = document.getElementById("password").value;
@@ -161,21 +173,31 @@
     var errorsPhone = document.getElementById("errorsPhone");
     var phone = '';
     const phones = [1];
+    var regexPhone = /^(09|03|02|07)\d{8}$/;
+    var PhoneExist = true;
     <?php foreach ($users as $iii) : ?>
       phones.push("<?php echo ($iii['phone']); ?>")
     <?php endforeach ?>
     for (var i = 0; i < phones.length; i++) {
       if (Phone == "" || Phone == null) {
         errorsPhone.innerHTML = "Số điện thoại không được bỏ trống!";
+        PhoneExist = false;
+        break;
+      }
+      if (!regexPhone.test(Phone)) {
+        errorsPhone.innerHTML = "Số điện thoại không dung dinh dang!";
+        PhoneExist = false;
         break;
       }
       if (Phone == phones[i]) {
         errorsPhone.innerHTML = "Số điện thoại đã tồn tại!";
+        PhoneExist = false;
         break;
-      } else {
-        errorsPhone.innerHTML = "";
-        phone = true;
       }
+    }
+    if (PhoneExist) {
+      errorsPhone.innerHTML = "";
+      phone = true;
     }
     if (username && name && Password && address && birthday && phone && email) {
       return true;

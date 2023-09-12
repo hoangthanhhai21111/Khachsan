@@ -1,12 +1,23 @@
 <?php
+include_once './database/db.php';
 ob_start();
 session_start();
 ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
+// include_once "./model/Group.php";
+// global $conn;
+// $group = new Group();
+// $group->haspermission('view_group');
 error_reporting(E_ALL);
+
+// $auth = unserialize($_SESSION["object"]);
+// print_r($auth->id);
+// $auth  = new Group();
+
+
 include_once 'layouts/header.php';
 include_once 'layouts/sidebar.php';
-include_once './database/db.php';
+
 
 $controller = 'users';
 if (isset($_GET['controller']) && $_GET['controller'] != '') {

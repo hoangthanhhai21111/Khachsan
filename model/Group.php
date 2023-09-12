@@ -187,7 +187,7 @@ class Group
             // echo true;
             // header("Location: error.php");
             return false;
-        } else{
+        } else {
             return true;
         }
     }

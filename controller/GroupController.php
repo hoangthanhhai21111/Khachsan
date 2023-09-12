@@ -27,8 +27,8 @@ class GroupController
         $group = new Group();
         //phân quyền
         if ($group->haspermission('add_group')) {
-            $group = new Group();
-            $group->haspermission('add_group');
+            // $group = new Group();
+            // $group->haspermission('add_group');
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 try {
                     $roles = [];
