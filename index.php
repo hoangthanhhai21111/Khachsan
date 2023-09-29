@@ -15,10 +15,11 @@ error_reporting(E_ALL);
 // $auth  = new Group();
 
 
+if (!isset($_SESSION['object'])) {
+    header("Location: login.php");
+}
 include_once 'layouts/header.php';
 include_once 'layouts/sidebar.php';
-
-
 $controller = 'users';
 if (isset($_GET['controller']) && $_GET['controller'] != '') {
     $controller = $_GET['controller'];
@@ -54,13 +55,10 @@ if (isset($_SESSION['object'])) {
 } else {
     header("Location: login.php");
 }
-
 $page = 'list';
 if (isset($_GET['page']) && $_GET['page'] != '') {
     $page = $_GET['page'];
 }
-
-// Gọi page
 switch ($page) {
     case 'list':
         $objController->list();
@@ -88,3 +86,21 @@ switch ($page) {
 }
 include 'layouts/footer.php';
 ob_end_flush();
+// Đặt thời gian hết hạn phiên là 2 giờ
+
+$session_expiration = 60*60*2; // 2 hours
+
+// Kiểm tra xem biến 'last_activity' có tồn tại trong phiên không
+if (isset($_SESSION['last_activity'])) {
+    // Kiểm tra xem thời gian kể từ hoạt động cuối cùng có vượt quá thời gian hết hạn phiên không
+    if (time() - $_SESSION['last_activity'] > $session_expiration) {
+        // Nếu vượt quá, hủy phiên và chuyển hướng người dùng về trang đăng nhập
+        session_unset();
+        session_destroy();
+        header('Location: login.php');
+        exit;
+    }
+}
+
+// Cập nhật thời gian hoạt động cuối cùng
+$_SESSION['last_activity'] = time();

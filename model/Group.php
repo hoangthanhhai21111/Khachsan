@@ -96,13 +96,19 @@ class Group
     }
     public function store($data)
     {
+        // $name = $data['name'];
+        // global $conn;
+        // $sql = "INSERT INTO `groups` 
+        // (`name`) 
+        // VALUES 
+        // ('$name') ";
+        // $conn->exec($sql);
         $name = $data['name'];
-        global $conn;
-        $sql = "INSERT INTO `groups` 
-        (`name`) 
-        VALUES 
-        ('$name') ";
-        $conn->exec($sql);
+global $conn;
+$sql = "INSERT INTO `groups` (`name`) VALUES (:name)";
+$stmt = $conn->prepare($sql);
+$stmt->bindParam(':name', $name, PDO::PARAM_STR);
+$stmt->execute();
     }
     public function delete($id)
     {
@@ -175,21 +181,34 @@ class Group
     }
     function haspermission($value)
     {
+        // global $conn;
+        // $auth = unserialize($_SESSION["object"]);
+        // $sql = "SELECT roles.name from users INNER JOIN groups ON users.group_id = groups.id
+        // INNER JOIN group_role ON group_role.group_id = groups.id
+        // INNER JOIN roles ON group_role.role_id = roles.id where users.id = $auth->id AND roles.name = '$value' ;";
+        // $stmt = $conn->query($sql);
+        // $stmt->setFetchMode(PDO::FETCH_OBJ); //array => object
+        // $rows = $stmt->fetchAll();
+        // if (empty($rows)) {
+        //     // echo true;
+        //     // header("Location: error.php");
+        //     return false;
+        // } else {
+        //     return true;
+        // }
         global $conn;
-        $auth = unserialize($_SESSION["object"]);
-        $sql = "SELECT roles.name from users INNER JOIN groups ON users.group_id = groups.id
-        INNER JOIN group_role ON group_role.group_id = groups.id
-        INNER JOIN roles ON group_role.role_id = roles.id where users.id = $auth->id AND roles.name = '$value' ;";
-        $stmt = $conn->query($sql);
-        $stmt->setFetchMode(PDO::FETCH_OBJ); //array => object
-        $rows = $stmt->fetchAll();
-        if (empty($rows)) {
-            // echo true;
-            // header("Location: error.php");
-            return false;
-        } else {
-            return true;
-        }
+    $auth = unserialize($_SESSION["object"]);
+    $sql = "SELECT roles.name from users 
+            INNER JOIN groups ON users.group_id = groups.id
+            INNER JOIN group_role ON group_role.group_id = groups.id
+            INNER JOIN roles ON group_role.role_id = roles.id 
+            WHERE users.id = :userId AND roles.name = :roleName";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(':userId', $auth->id, PDO::PARAM_INT);
+    $stmt->bindParam(':roleName', $value, PDO::PARAM_STR);
+    $stmt->execute();
+    $rows = $stmt->fetchAll(PDO::FETCH_OBJ);
+    return !empty($rows); 
     }
     public function updatePermission($roles, $id)
     {

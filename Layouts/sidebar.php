@@ -46,16 +46,19 @@ function activate($controller, $page)
       </a>
       <ul id="Groups-nav" class="nav-content <?php echo (Show("groups") ? 'show' : 'collapse'); ?>" data-bs-parent="#sidebar-nav">
         <li>
-          <?php // if($auth->haspermission('view_group')):?>
+          <?php if($auth->haspermission('view_group')):?>
           <a href="?controller=groups" <?php echo (activate("groups", '') ? 'style="color: #4154f1;"class="active"' : ''); ?>>
             <i class="bi bi-circle"></i><span>Danh sách Các Chức Vụ</span>
           </a>
-          <?php //endif; ?>
+          <?php endif; ?>
         </li>
         <li>
+        <?php if ($auth->haspermission('add_group')) : ?>
+
           <a href="?controller=groups&&page=add" <?php echo (activate("groups", 'add') ? 'style="color: #4154f1;"class="active"' : ''); ?>>
             <i class="bi bi-circle"></i><span>Thêm Chức Vụ</span>
           </a>
+          <?php endif; ?>
         </li>
       </ul>
     </li>

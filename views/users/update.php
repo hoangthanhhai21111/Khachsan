@@ -30,16 +30,16 @@
                 <input type="email" name='email' value="<?= $row->email ?>" class="form-control" id="Email">
               </div>
               <div class="col-6">
-                <label for="inputAddress5" class="form-label">Địa Chỉ</label>
-                <input type="text" class="form-control" value="<?= $row->address ?>" name="address" id="inputAddres5s" placeholder="Tỉnh, Huyện , Xã">
+                <label for="inputAddress5" class="form-label">Địa Chỉ: <span style="color:red" id="orrorsAddress">(*)</span></label>
+                <input type="text" class="form-control" value="<?= $row->address ?>" name="address" id="address" placeholder="Tỉnh, Huyện , Xã">
               </div>
               <div class="col-6">
-                <label for="inputAddress5" class="form-label">Ngày sinh</label>
-                <input type="date" class="form-control" value="<?= $row->day_of_birth ?>" name="day_of_birth" placeholder="some text value...">
+                <label for="inputAddress5" class="form-label">Ngày sinh: <span style="color:red" id="orrorsDayOfBirth">(*)</span></label>
+                <input type="date" class="form-control" value="<?= $row->day_of_birth ?>" id="dayOfBirth" name="day_of_birth" placeholder="some text value...">
               </div>
               <div class="col-12">
-                <label for="inputAddress2" class="form-label">Số Điện Thoại</label>
-                <input type="text" maxlength="11" value="<?= $row->phone ?>" class="form-control" id="" name="phone">
+                <label for="inputAddress2" class="form-label">Số Điện Thoại: <span style="color:red" id="orrorsPhone">(*)</span></label>
+                <input type="text" maxlength="11" value="<?= $row->phone ?>" class="form-control" id="phone" name="phone">
                 <!-- <input type="text" maxlength="2" id="sessionNo" name="sessionNum" onkeypress="return isNumberKey(event)" /> -->
 
               </div>
@@ -68,40 +68,103 @@
 </main>
 <script>
   function updateUser() {
+
     var name = document.getElementById("inputName5").value;
-    var errorsName = document.getElementById("errorsName");
+    var errorName = document.getElementById("errorsName");
     var regexName = /^[\p{L}\p{M}\s.'-]+$/u;
-    var nameError = true;
+    var nameExist = true;
+    var nameError = false;
     if (name == "") {
-      errorsName.innerHTML = "Tên không được bỏ trống!";
-      nameError = false;
+      errorName.innerHTML = "Tên không được bỏ trống!";
+      nameExist = false;
     }
     if (!regexName.test(name)) {
-      errorsName.innerHTML = "Tên không Đúng định dạng!";
-      nameError = false;
+      errorName.innerHTML = "Tên không Đúng định dạng!";
+      nameExist = false;
+    }
+    if (nameExist) {
+      nameError = true;
     }
 
     var userName = document.getElementById('userName').value;
     var errorsUserName = document.getElementById("errorsUserName");
-    var userNameError = true;
+    var userNameExist = true;
+    var userNameError = false;
     if (userName == "") {
       errorsUserName.innerHTML = "Tên đăng nhập không được bỏ trống!";
-      userNameError = false;
+      userNameExist = false;
+    } else {
+      errorsUserName.innerHTML = "";
+      userNameExist = true;
+    }
+    if (userNameExist) {
+      userNameError = true;
     }
 
     var Email = document.getElementById('Email').value;
     var errorsEmail = document.getElementById("errorsEmail");
     var regexEmail = /^[a-zA-Z0-9._%+-]+@gmail\.com$/;
-    var userEmail = true;
+    var EmailExist = true;
+    var emailError = false;
     if (Email == "") {
       errorsEmail.innerHTML = "Email không được bỏ trống!";
-      userEmail = false;
+      EmailExist = false;
     }
-    if(!regexEmail.test(Email)){
+    if (!regexEmail.test(Email)) {
       errorsEmail.innerHTML = "Email không đúng định dạng!";
-      userEmail = false;
+      EmailExist = false;
+    }
+    if (EmailExist) {
+      emailError = true;
     }
 
-    return false;
+    var address = document.getElementById("address").value;
+    var orrorsAddress = document.getElementById("orrorsAddress");
+    var addresExist = true;
+    var addressError = false;
+    if (address == "") {
+      orrorsAddress.innerHTML = "Địa chỉ không được bỏ trống!";
+      addresExist = false;
+    }
+    if (addresExist) {
+      addressError = true;
+    }
+
+    var dayOfBirth = document.getElementById("dayOfBirth").value;
+    var orrorsDayOfBirth = document.getElementById("orrorsDayOfBirth");
+    var dayOfBirthExist = true;
+    var dayOfBirthError = false;
+    if (dayOfBirth == "") {
+      orrorsDayOfBirth.innerHTML = "Địa chỉ không được bỏ trống!";
+      dayOfBirthExist = false;
+    }
+    if (dayOfBirthExist) {
+      dayOfBirthError = true;
+    }
+
+    var phone = document.getElementById("phone").value;
+    var errorsPhone = document.getElementById("orrorsPhone");
+    var regexPhone = /^(09|03|02|07)\d{8}$/;
+    var phoneExist = true;
+    var phoneError = false;
+    if (phone == "") {
+      orrorsPhone.innerHTML = "Số điện thoại không được bỏ trống!";
+      phoneExist = false;
+    } else
+    if (!regexPhone.test(phone)) {
+      errorsPhone.innerHTML = "Số điện thoại không đúng định dạng!";
+      phoneExist = false;
+    } else {
+      errorsPhone.innerHTML = "";
+      phoneExist = true;
+    }
+    if (phoneExist) {
+      phoneError = true;
+    }
+    if (nameError && phoneError && userNameError && addressError && emailError && dayOfBirthError) {
+      return true;
+    } else {
+      return false;
+    }
   }
 </script>

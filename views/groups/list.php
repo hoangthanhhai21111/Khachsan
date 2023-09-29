@@ -72,11 +72,11 @@ $Group = new Group();
                     <td>
                       <?php if ($Group->haspermission('show_group')) : ?>
                         <a title="xem" href="?controller=groups&page=show&id=<?php echo $row->id; ?>" class="btn btn-info"><i class="bi bi-zoom-in" style=""></i></a>
-                      <?php endif; ?>
-                      <?php if ($group->haspermission('update_group')) : ?> |
+                      |<?php endif; ?>
+                      <?php if ($group->haspermission('update_group')) : ?> 
                         <a title="sửa" href="?controller=groups&&page=edit&&id=<?php echo $row->id; ?>" class="btn btn-secondary"><i class="bi bi-pencil-square" style=""></i></a>
-                      <?php endif; ?>
-                      <?php if ($group->haspermission('delete_group')) : ?> |
+                      |<?php endif; ?>
+                      <?php if ($group->haspermission('delete_group')) : ?> 
                         <a title="xóa" data-url="?controller=groups&&page=delete&&id=<?php echo $row->id; ?>" id="<?php echo $row->id; ?>" class="btn deleteIcon btn-danger">
                           <div class="icon"><i class="bi bi-trash" style=""></i></div>
                         </a>
