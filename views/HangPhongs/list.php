@@ -25,7 +25,7 @@
                   <div class=" col-lg-10 cat">
                     <input type="text" class="form-control" value="<?= $name ?>" name="name" placeholder="Hạng Phòng">
                   </div>
-                  <div class=" col-lg-2 cat">                 
+                  <div class=" col-lg-2 cat">
                     <div class=" col-lg-12 cat">
                       <button type="submit" class="btn btn-primary">Tim kiếm</button>
                     </div>
@@ -55,7 +55,6 @@
                 .cat {
                   float: left;
                 }
-
                 .cat1 {
                   margin: 15px 0px 0px 0px;
                 }

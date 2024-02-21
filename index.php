@@ -15,6 +15,23 @@ error_reporting(E_ALL);
 // $auth  = new Group();
 
 
+
+// ob_end_flush();
+// Đặt thời gian hết hạn phiên là 2 giờ
+
+$session_expiration = 60*60*2; // 2 hours
+
+// Kiểm tra xem biến 'last_activity' có tồn tại trong phiên không
+if (isset($_SESSION['last_activity'])) {
+    // Kiểm tra xem thời gian kể từ hoạt động cuối cùng có vượt quá thời gian hết hạn phiên không
+    if (time() - $_SESSION['last_activity'] > $session_expiration) {
+        // Nếu vượt quá, hủy phiên và chuyển hướng người dùng về trang đăng nhập
+        session_unset();
+        session_destroy();
+        // header('Location: login.php');
+        exit;
+    }
+}
 if (!isset($_SESSION['object'])) {
     header("Location: login.php");
 }
@@ -85,22 +102,7 @@ switch ($page) {
         break;
 }
 include 'layouts/footer.php';
-ob_end_flush();
-// Đặt thời gian hết hạn phiên là 2 giờ
 
-$session_expiration = 60*60*2; // 2 hours
-
-// Kiểm tra xem biến 'last_activity' có tồn tại trong phiên không
-if (isset($_SESSION['last_activity'])) {
-    // Kiểm tra xem thời gian kể từ hoạt động cuối cùng có vượt quá thời gian hết hạn phiên không
-    if (time() - $_SESSION['last_activity'] > $session_expiration) {
-        // Nếu vượt quá, hủy phiên và chuyển hướng người dùng về trang đăng nhập
-        session_unset();
-        session_destroy();
-        header('Location: login.php');
-        exit;
-    }
-}
 
 // Cập nhật thời gian hoạt động cuối cùng
 $_SESSION['last_activity'] = time();

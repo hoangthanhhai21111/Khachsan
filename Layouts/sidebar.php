@@ -45,21 +45,19 @@ function activate($controller, $page)
         <i class="bi bi-people-fill"></i><span>Chức Vụ</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul id="Groups-nav" class="nav-content <?php echo (Show("groups") ? 'show' : 'collapse'); ?>" data-bs-parent="#sidebar-nav">
-        <li>
-          <?php if($auth->haspermission('view_group')):?>
-          <a href="?controller=groups" <?php echo (activate("groups", '') ? 'style="color: #4154f1;"class="active"' : ''); ?>>
-            <i class="bi bi-circle"></i><span>Danh sách Các Chức Vụ</span>
-          </a>
-          <?php endif; ?>
-        </li>
-        <li>
+        <?php if ($auth->haspermission('view_group')) : ?> <li>
+            <a href="?controller=groups" <?php echo (activate("groups", '') ? 'style="color: #4154f1;"class="active"' : ''); ?>>
+              <i class="bi bi-circle"></i><span>Danh sách Các Chức Vụ</span>
+            </a>
+          </li>
+        <?php endif; ?>
         <?php if ($auth->haspermission('add_group')) : ?>
-
-          <a href="?controller=groups&&page=add" <?php echo (activate("groups", 'add') ? 'style="color: #4154f1;"class="active"' : ''); ?>>
-            <i class="bi bi-circle"></i><span>Thêm Chức Vụ</span>
-          </a>
-          <?php endif; ?>
-        </li>
+          <li>
+            <a href="?controller=groups&&page=add" <?php echo (activate("groups", 'add') ? 'style="color: #4154f1;"class="active"' : ''); ?>>
+              <i class="bi bi-circle"></i><span>Thêm Chức Vụ</span>
+            </a>
+          </li>
+        <?php endif; ?>
       </ul>
     </li>
     <li class="nav-item">
@@ -67,16 +65,20 @@ function activate($controller, $page)
         <i class="bi bi-people-fill"></i><span>Nhân Viên</span><i class="bi bi-chevron-down ms-auto"></i>
       </a>
       <ul id="components-nav" class="nav-content <?php echo (Show("users") ? 'show' : 'collapse'); ?>" data-bs-parent="#sidebar-nav">
+      <?php if ($auth->haspermission('view_user')) : ?>
         <li>
           <a href="?controller=users" <?php echo (activate("users", '') ? 'style="color: #4154f1;"class="active"' : ''); ?>>
             <i class="bi bi-circle"></i><span>Danh sách Nhân Viên</span>
           </a>
         </li>
+        <?php endif; ?>
+       <?php if ($auth->haspermission('add_user')):?>
         <li>
           <a href="?controller=users&&page=add" <?php echo (activate("users", 'add') ? 'style="color: #4154f1;"class="active"' : ''); ?>>
             <i class="bi bi-circle"></i><span>Thêm Nhân Viên</span>
           </a>
         </li>
+        <?php endif;?>
       </ul>
     </li><!-- End Components Nav -->
     <li class="nav-item">
@@ -95,8 +97,8 @@ function activate($controller, $page)
           </a>
         </li>
         <li>
-          <a href="forms-layouts.html">
-            <i class="bi bi-circle"></i><span>Form Layouts</span>
+          <a href="?controller=hangphongs" <?php echo (activate("hangphongs", '') ? 'style="color: #4154f1;"class="active"' : ''); ?>>
+            <i class="bi bi-circle"></i><span>hạng phòng</span>
           </a>
         </li>
         <li>

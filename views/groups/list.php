@@ -62,6 +62,7 @@ $Group = new Group();
                 </tr>
               </thead>
               <tbody>
+                
                 <?php foreach ($rows as $row) : ?>
                   <tr class="item-<?= $row->id ?>">
                     <th scope="row"><?= $row->id ?></th>

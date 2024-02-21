@@ -8,7 +8,7 @@ for ($i = 0; $i < count($array) - 1; $i++) {
             $temp = $array[$j];
             $array[$j] = $array[$i];
             $array[$i] = $temp;
-        }
+        } 
     }
 }
 $left = 0;

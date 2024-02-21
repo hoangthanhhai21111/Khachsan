@@ -76,7 +76,7 @@ class GroupController
     public function edit()
     {
         $group = new Group();
-        if ($group->haspermission('add_group')) {
+        if ($group->haspermission('update_group')) {
             $group = new group();
             $id = $_GET['id'];
             if (isset($_POST['update'])) {

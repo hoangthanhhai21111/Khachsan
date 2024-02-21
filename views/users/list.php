@@ -1,3 +1,7 @@
+<?php
+include_once "./model/Group.php";
+$Group = new Group();
+?>
 <main id="main" class="main">
   <div class="pagetitle">
     <h1>Nhân Viên</h1>
@@ -45,9 +49,11 @@
                 <h5 class="card-title">Danh Sách Các Nhân Viên</h5>
               </div>
               <div class="col-lg-6 cat cat1">
+                <?php if($Group->haspermission('add_user')):?>
                 <div class='cat' style="text-align:right">
                   <a href="?controller=users&&page=add" class="btn" style="color:#0022ff;"><u>Thêm mới</u> <i class="bi bi-plus" style="width:100px"></i></a>|
                 </div>
+                <?php endif;?>
                 <div class='cat'>
                   <button class="btn" style="color:#0022ff;" onclick="seach()"><u>Lọc nâng cao <i class="bi bi-funnel-fill"></i></u></button>|
                 </div>
@@ -84,20 +90,26 @@
               </thead>
               <tbody>
                 <?php foreach ($rows as $row) : ?>
-                  <tr class="item-<?= $row->id ?>">
+
+                  <tr class="item-<?= $row->id;  ?>">
                     <th scope="row"><?= $row->id ?></th>
                     <td><?= $row->name ?></td>
-                    <!-- <td><img src="http://localhost/Quan_ly_khach_san_code_thuan/<?php // echo $row->avatar
-                                                                                      ?>" alt=""></td> -->
                     <td><?= $row->email ?></td>
                     <td><?= $row->phone ?></td>
                     <td><?= $row->group_name ?></td>
                     <td style="text-align: center" ;><input type="checkbox" class="form-check-input" name="id[]" value="<?= $row->id ?>"></td>
-                    <td> <a href="?controller=users&page=show&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-zoom-in" style="color:#0022ff;"></i></a>
+                    <td> 
+                      <?php if($Group->haspermission('show_user')):?>
+                      <a href="?controller=users&page=show&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-zoom-in" style="color:#0022ff;"></i></a>
+                      <?php endif;?>
+                      <?php if($Group->haspermission("update_user")):?>
                       <a href="?controller=users&&page=edit&&id=<?php echo $row->id; ?>" class="btn"><i class="bi bi-pencil-square" style="color:#0022ff;"></i></a>
+                      <?php endif;?>
+                      <?php if($Group->haspermission('delete_user')):?>
                       <a data-url="?controller=users&&page=delete&&id=<?php echo $row->id; ?>" id="<?php echo $row->id; ?>" class="btn deleteIcon">
                         <div class="icon"><i class="bi bi-trash" style="color:#0022ff;"></i></div>
                       </a>
+                      <?php endif;?>
                       </a>
                     </td>
                   </tr>
